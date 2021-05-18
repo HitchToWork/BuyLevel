@@ -1,0 +1,247 @@
+// How many menu items do we have?
+$menu-items: 2;
+
+// Transition Speed
+$transition-speed: 1.3s;
+
+// Dynamic Variables
+$width: (100/$menu-items) * 1%; // makes each item the right size
+$menu-items-loop-offset: $menu-items - 1; // the number of items in the menu
+
+.navbar {
+  display: block;
+}
+
+
+.PrimaryNav {
+  list-style: none;
+  max-width: 720px; // As all measurements are using % this could be a flexible value.
+  padding: 0;
+  width: 200px;
+  z-index: 100000;
+  bottom: 5px;
+}
+
+.Nav-item {
+  background: transparent;
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: $width; //dynamic width
+  text-align: center;
+
+  &:first-child {
+    border-radius: 3px 0 0 3px;
+  }
+
+  &:last-child {
+    border-radius: 0 3px 3px 0;
+  }
+
+  &.is-active a {
+    color: lighten($main-black, 20%);
+  }
+
+  a {
+    color: $main-black;
+    display: block;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-decoration: none;
+
+    &:hover {
+      color: lighten($main-black, 20%);
+    }
+  }
+}
+
+
+.with-indicator {
+  position: relative;// the menu is "relative" to the absolute position last-child pseudo elements.
+  z-index: 0;
+
+  .Nav-item {
+    &:last-child {
+      &:before, &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        pointer-events: none;
+        transition: left #{$transition-speed} ease;
+      }
+      &:after {
+        background: $gradient;
+        height: 3px;
+        top: 40px;
+        margin-left: 1*($width / 5);
+        width: 3*($width / 5);
+        z-index: -1;
+      }
+    }
+  }
+
+  @for $i from 1 through $menu-items-loop-offset {
+    // when the Nav item "is active", make the indicator line up with the navigation item.
+    .Nav-item:nth-child(#{$i}).is-active ~ .Nav-item:last-child:after {
+      left:($width*$i)-$width;
+    }
+    .Nav-item:nth-child(#{$i}).is-active ~ .Nav-item:last-child:before
+    {
+      left:($width*$i)+($width/2)-$width; // this ensures the triangle lines up to the menu.
+    }
+}
+
+
+    // This could be in the same loop as the above but for the tutorial steps it's not
+    @for $i from 1 through $menu-items-loop-offset {
+    // We have to use !important to make the hovers overide if the last:child is the active or hovered
+    .Nav-item:nth-child(#{$i}):hover ~ .Nav-item:last-child:after {
+      left:($width*$i)-$width !important;
+    }
+
+    .Nav-item:nth-child(#{$i}):hover ~ .Nav-item:last-child:before{
+      left:($width*$i)+($width/2)-$width !important;
+    }
+
+  }
+
+    .Nav-item {
+        &:last-child {
+          // make sure the last-child talks to itself
+          &:hover, &.is-active {
+            &:before {
+             // we have to use important because the sibling selctor is more specific.
+              left: (100%-$width)+($width/2) !important;
+            }
+            &:after{
+              left: 100%-$width !important;
+            }
+          }
+        }
+    }
+}
+
+/* ---------------------------------------------------
+    MOBILE NAVBAR
+----------------------------------------------------- */
+
+
+.menu__toggler {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 999;
+  height: 28px;
+  width: 28px;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  span,
+  span::before,
+  span::after {
+    position: absolute;
+    content: '';
+    width: 28px;
+    height: 2.5px;
+    background: $main-black;
+    border-radius: 20px;
+    transition: 500ms cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  span::before {
+    top: -8px;
+  }
+
+  span::after {
+    top: 8px;
+  }
+
+  &.active > span  {
+    background: transparent;
+  }
+
+  &.active > span::before,
+  &.active > span::after {
+    background: lighten($main-black, 20%);
+    top: 0px;
+  }
+
+  &.active > span::before  {
+    transform: rotate(-225deg);
+  }
+
+  &.active > span::after  {
+    transform: rotate(225deg);
+  }
+
+}
+
+/*
+ * SLIDING MENU PANEL
+ */
+.menu {
+  position: absolute;
+  left: -200px;
+  z-index: 998;
+  color: $main-black;
+  background: $alt-white;
+  clip-path: polygon(0 0, 85% 0, 100% 100%, 0% 100%);
+  width: 200px;
+  height: 100%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: 300ms left cubic-bezier(0.77, 0, 0.175, 1);
+  // @media only screen and (max-width: 600px) {
+  //   width: 200px;
+  //   left: -200px;
+  //   padding: 25px;
+  // }
+  &.active {
+    left: 0;
+  }
+  p {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.menu__toggler {
+  display: none;
+}
+
+.side_nav {
+  .Nav-item a {
+    &:hover, &.is-active {
+      // @include box-shadow(0, 3px, 0, $gradient, $inset: false)
+      // box-shadow: 0px 3px $gradient;
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        pointer-events: none;
+        background: $gradient;
+        height: 3px;
+        margin-left: 1*($width / 5);
+        width: 3*($width / 5);
+        z-index: -1;
+      }
+    }
+  }
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .menu__toggler {
+    display: inline-block;
+  }
+  .logo {
+    float: right;
+  }
+}

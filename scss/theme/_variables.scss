@@ -1,0 +1,108 @@
+//fonts
+
+//Lato backup
+// @import url("//fonts.googleapis.com/css?family=Lato:300,400,900");
+
+//Cera Pro Main
+@font-face {
+  font-family: 'Cera Pro Thin';
+  src: url('../fonts/CeraPro-Thin.eot');
+  src: url('../fonts/CeraPro-Thin.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/CeraPro-Thin.woff') format('woff'),
+  url('../fonts/CeraPro-Thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cera Pro Light';
+  src: url('../fonts/CeraPro-Light.eot');
+  src: url('../fonts/CeraPro-Light.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/CeraPro-Light.woff') format('woff'),
+  url('../fonts/CeraPro-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cera Pro Regular';
+  src: url('../fonts/CeraPro-Regular.eot');
+  src: url('../fonts/CeraPro-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/CeraPro-Regular.woff') format('woff'),
+  url('../fonts/CeraPro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cera Pro Medium';
+  src: url('../fonts/CeraPro-Medium.eot');
+  src: url('../fonts/CeraPro-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/CeraPro-Medium.woff') format('woff'),
+  url('../fonts/CeraPro-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cera Pro Bold';
+  src: url('../fonts/CeraPro-Bold.eot');
+  src: url('../fonts/CeraPro-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/CeraPro-Bold.woff') format('woff'),
+  url('../fonts/CeraPro-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cera Pro Black';
+  src: url('../fonts/CeraPro-Black.eot');
+  src: url('../fonts/CeraPro-Black.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/CeraPro-Black.woff') format('woff'),
+  url('../fonts/CeraPro-Black.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+// Menu Item Variables
+// The number of items in the menu
+$menu-items: 5;
+// We multiply it by 1% to get the correct % unit
+$width: (100/$menu-items) * 1%;
+
+// // Colors
+// $background-color: #121212;
+// $indicator-color: #e82d00;
+
+//colors
+$main-white:              #ECEFF6;
+$main-black:              #363636;
+$main-yellow:             #FFD301;
+$main-orange:             #E95400;
+$alt-white:               #FFFFFF;
+
+$gradient: linear-gradient(90deg, $main-yellow 0%, $main-orange 100%);
+$fade-gradient: rgba($main-orange, .5);
+
+$input-color: #A7A7A7;
+$input-border: #CDD9ED;
+$input-background: #fff;
+$input-placeholder: #CBD1DC;
+
+$input-border-focus: $main-orange;
+
+$group-color: $input-color;
+$group-border: $input-border;
+$group-background: #EEF4FF;
+
+$group-color-focus: #fff;
+$group-border-focus: $input-border-focus;
+$group-background-focus: #678EFE;
